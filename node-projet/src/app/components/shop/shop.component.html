@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - E-commerce Website</title>
+  <link rel="stylesheet" href="/src/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <section id="header">
+    <a routerLink="/"><img src="src/images/logo.jpg" class="logo" alt=""></a>
+
+    <div>
+      <ul id="navbar">
+        <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li><a class="active" routerLink="/shop" routerLinkActive="active">Shop</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+        <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+        <li><a routerLink="/cart"><i class="fas fa-cart-arrow-down"></i></a></li>
+      </ul>
+    </div>
+  </section>
+  <!-- Shop Section -->
+  <section id="search-bar">
+    <h1>Shop Our Products</h1>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name, author..." />
+    <select [(ngModel)]="filterCriteria">
+      <option value="all">All</option>
+      <option value="name">Name</option>
+      <option value="author">Author</option>
+    </select>
+  </section>
+
+  <section class="shop">
+    <div class="controls">
+      <label for="filter-genre">Filter by Genre:</label>
+      <select id="filter-genre" [(ngModel)]="selectedGenre">
+        <option value="all">All Genres</option>
+        <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+      </select>
+
+      <label for="filter-category">Filter by Category:</label>
+      <select id="filter-category" [(ngModel)]="selectedCategory">
+        <option value="all">All Categories</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+
+      <label for="filter-type">Filter by Type:</label>
+      <select id="filter-type" [(ngModel)]="selectedType">
+        <option value="all">All Types</option>
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="controls">
+      <label for="sort-by">Sort By:</label>
+      <select id="sort-by" [(ngModel)]="sortCriteria">
+        <option value="default">Default</option>
+        <option value="name">Alphabetical</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="score">Score</option>
+      </select>
+    </div>
+
+    <div class="product-list">
+      <div *ngFor="let product of filteredProducts" class="product-item">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.price | currency }}</p>
+        <img [src]="product.image" [alt]="product.name">
+        <a [routerLink]="['/product', product.id]" class="btn">View Product</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 E-Ragana. All rights reserved.</p>
+  </footer>
+</body>
+</html>
